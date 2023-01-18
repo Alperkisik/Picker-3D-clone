@@ -1,0 +1,91 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Game_Manager : MonoBehaviour
+{
+    /* 
+     * Game Managerýn görevleri
+     * 1- Level Geçiþlerini yönetir
+     * 2- Level'ýn biterse bir sonraki level'ý yükler
+     * 3- Level sonu istatistikleri kaydeder
+     */
+
+    public static Game_Manager Instance { get; private set; }
+
+    [SerializeField] List<GameObject> levels;
+    int current_level_index;
+    GameObject current_level_prefab;
+    bool level_finish = false;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
+
+    private void Start()
+    {
+        Subscribe();
+
+        current_level_index = PlayerPrefs.GetInt("Last_Level");
+        Load_Level();
+    }
+
+    private void Subscribe()
+    {
+        Custom_Event_Manager.Instance.OnLevelFinish += Event_OnLevelFinish;
+        Custom_Event_Manager.Instance.OnLevelStartTap += Event_OnLevelStartTap;
+    }
+
+    private void Event_OnLevelStartTap(object sender, EventArgs e)
+    {
+        Custom_Event_Manager.Instance.Event_OnLevelStart();
+    }
+
+    private void Event_OnLevelFinish(object sender, EventArgs e)
+    {
+        level_finish = true;
+        // Eðer Level baþarýlý ise 
+        /*current_level_index++;
+        if (current_level_index >= levels.Count) current_level_index = 0;
+
+        DestroyCurrentLevel();
+        Load_Level();*/
+    }
+
+    private void Load_Level()
+    {
+        current_level_prefab = Instantiate(levels[current_level_index], Vector3.zero, Quaternion.identity, transform);
+        Custom_Event_Manager.Instance.Event_OnOnLevelLoaded();
+        //Custom_Event_Manager.Instance.Event_OnLevelStart();
+    }
+
+    private void DestroyCurrentLevel()
+    {
+        Destroy(current_level_prefab);
+    }
+
+    public int Get_Level_Index()
+    {
+        return current_level_index;
+    }
+    public void Next_Level()
+    {
+        if (!level_finish) return;
+
+        current_level_index++;
+        if (current_level_index >= levels.Count) current_level_index = 0;
+
+        DestroyCurrentLevel();
+        Load_Level();
+    }
+
+    public void Retry_Level()
+    {
+        if (!level_finish) return;
+
+        DestroyCurrentLevel();
+        Load_Level();
+    }
+}
