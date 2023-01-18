@@ -7,17 +7,15 @@ public class Tap_Animation : MonoBehaviour
     [SerializeField] float animation_speed;
     Vector3 scaleVector;
     float scale_value;
-    bool doAnimate;
     bool goBig = true;
     void Start()
     {
         scale_value = 1f;
-        doAnimate = true;
         scaleVector.z = 1f;
     }
     void Update()
     {
-        if (doAnimate) Animate();
+        //if (doAnimate) Animate();
     }
 
     private void Animate()

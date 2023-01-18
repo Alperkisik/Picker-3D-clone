@@ -24,7 +24,7 @@ public class Score_Board_Position_Checker : MonoBehaviour
     {
         Collider[] score_Board_colliders = Physics.OverlapSphere(transform.position, scan_range, score_Board_Layer);
 
-        if (score_Board_colliders.Length > 0) Level_Manager.Instance.Multiply_Level_Score(score_Board_colliders[0].gameObject.GetComponent<Score_Board>().Get_Score_Board_Value());
+        if (score_Board_colliders.Length > 0) Level_Manager.Instance.Multiply_Level_Score(score_Board_colliders[0].transform.parent.GetComponent<Score_Board>().Get_Score_Board_Value());
         else Level_Manager.Instance.Multiply_Level_Score(1);
         Custom_Event_Manager.Instance.Event_OnLevelComplited();
     }

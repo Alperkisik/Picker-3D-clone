@@ -970,7 +970,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2316945571246271674}
   - component: {fileID: 389850736360721342}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Score_Board_Position_Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}

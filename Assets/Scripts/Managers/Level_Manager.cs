@@ -21,6 +21,7 @@ public class Level_Manager : MonoBehaviour
     {
         Subscribe();
         Spawn_Player();
+        level_score = 0;
     }
 
     private void Subscribe()

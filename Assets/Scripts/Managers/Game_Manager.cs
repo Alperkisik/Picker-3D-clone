@@ -5,13 +5,6 @@ using UnityEngine;
 
 public class Game_Manager : MonoBehaviour
 {
-    /* 
-     * Game Managerýn görevleri
-     * 1- Level Geçiþlerini yönetir
-     * 2- Level'ýn biterse bir sonraki level'ý yükler
-     * 3- Level sonu istatistikleri kaydeder
-     */
-
     public static Game_Manager Instance { get; private set; }
 
     [SerializeField] List<GameObject> levels;
