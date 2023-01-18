@@ -7,7 +7,6 @@ public class Tap_Icon_Animation : MonoBehaviour
     [SerializeField] float animation_speed;
     bool right = true;
     bool do_animation = true;
-    float zAngle_Value = 0f;
     void Start()
     {
         Subscribe();
@@ -45,15 +44,7 @@ public class Tap_Icon_Animation : MonoBehaviour
 
         transform.Rotate(0f, 0f, zAngle_multiplier * animation_speed);
 
-        if (transform.rotation.z < -0.20f)
-        {
-            right = false;
-            zAngle_Value = -20f;
-        }
-        else if (transform.rotation.z > 0f)
-        {
-            right = true;
-            zAngle_Value = 0f;
-        }
+        if (transform.rotation.z < -0.20f) right = false;
+        else if (transform.rotation.z > 0f) right = true;
     }
 }
